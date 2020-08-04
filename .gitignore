@@ -1,0 +1,7 @@
+Pods/
+Podfile.lock
+Jet2Assignment.xcworkspace/
+.DS_Store
+*.xcuserdata
+build/
+docs/
