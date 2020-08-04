@@ -30,6 +30,8 @@
 		5B18475624D9E56E002C6A46 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18475524D9E56E002C6A46 /* Persistable.swift */; };
 		5B18475924D9E7EB002C6A46 /* BlogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18475824D9E7EB002C6A46 /* BlogViewModel.swift */; };
 		5B18475B24D9EE36002C6A46 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18475A24D9EE35002C6A46 /* Observer.swift */; };
+		5B34A05624DA08E4003A13C2 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34A05524DA08E4003A13C2 /* BaseCell.swift */; };
+		5B34A05824DA15C2003A13C2 /* BlogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B34A05724DA15C2003A13C2 /* BlogCell.swift */; };
 		751D2998085A20D870AE61B9 /* Pods_Jet2AssignmentTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52266A0BDA1B5BC5E4B40CF2 /* Pods_Jet2AssignmentTests.framework */; };
 		9199F9157940EECB6E6BB402 /* Pods_Jet2Assignment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D29B5DEA49BEEBC6C33276F7 /* Pods_Jet2Assignment.framework */; };
 /* End PBXBuildFile section */
@@ -84,6 +86,8 @@
 		5B18475524D9E56E002C6A46 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		5B18475824D9E7EB002C6A46 /* BlogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogViewModel.swift; sourceTree = "<group>"; };
 		5B18475A24D9EE35002C6A46 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		5B34A05524DA08E4003A13C2 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		5B34A05724DA15C2003A13C2 /* BlogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogCell.swift; sourceTree = "<group>"; };
 		70952FFE85C23F32C8031F26 /* Pods-Jet2Assignment-Jet2AssignmentUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jet2Assignment-Jet2AssignmentUITests.debug.xcconfig"; path = "Target Support Files/Pods-Jet2Assignment-Jet2AssignmentUITests/Pods-Jet2Assignment-Jet2AssignmentUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B34A3EB496B8EABBD97169E8 /* Pods-Jet2Assignment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jet2Assignment.debug.xcconfig"; path = "Target Support Files/Pods-Jet2Assignment/Pods-Jet2Assignment.debug.xcconfig"; sourceTree = "<group>"; };
 		BF94B325A16E154709B93315 /* Pods_Jet2Assignment_Jet2AssignmentUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jet2Assignment_Jet2AssignmentUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,9 +153,9 @@
 				5B18473A24D9A65E002C6A46 /* Helpers */,
 				5B18473324D9A638002C6A46 /* NetworkLayer */,
 				5B18475724D9E7C7002C6A46 /* ViewModels */,
+				5B18475C24DA03B1002C6A46 /* Views */,
 				5B18470024D9A27F002C6A46 /* AppDelegate.swift */,
 				5B18470224D9A27F002C6A46 /* SceneDelegate.swift */,
-				5B18470424D9A27F002C6A46 /* ViewController.swift */,
 				5B18470624D9A27F002C6A46 /* Main.storyboard */,
 				5B18470C24D9A282002C6A46 /* Assets.xcassets */,
 				5B18470E24D9A282002C6A46 /* LaunchScreen.storyboard */,
@@ -225,6 +229,24 @@
 				5B18475824D9E7EB002C6A46 /* BlogViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5B18475C24DA03B1002C6A46 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B34A05424DA07B8003A13C2 /* TableCell */,
+				5B18470424D9A27F002C6A46 /* ViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5B34A05424DA07B8003A13C2 /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				5B34A05524DA08E4003A13C2 /* BaseCell.swift */,
+				5B34A05724DA15C2003A13C2 /* BlogCell.swift */,
+			);
+			path = TableCell;
 			sourceTree = "<group>";
 		};
 		7C71E8B26882FAB14968917F /* Frameworks */ = {
@@ -493,8 +515,10 @@
 				5B18470524D9A27F002C6A46 /* ViewController.swift in Sources */,
 				5B18473924D9A655002C6A46 /* APIClient.swift in Sources */,
 				5B18473824D9A655002C6A46 /* APIRouter.swift in Sources */,
+				5B34A05624DA08E4003A13C2 /* BaseCell.swift in Sources */,
 				5B18470B24D9A27F002C6A46 /* Jet2Assignment.xcdatamodeld in Sources */,
 				5B18470124D9A27F002C6A46 /* AppDelegate.swift in Sources */,
+				5B34A05824DA15C2003A13C2 /* BlogCell.swift in Sources */,
 				5B18475B24D9EE36002C6A46 /* Observer.swift in Sources */,
 				5B18474024D9A672002C6A46 /* Extensions.swift in Sources */,
 				5B18470324D9A27F002C6A46 /* SceneDelegate.swift in Sources */,
