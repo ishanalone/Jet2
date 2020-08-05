@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+
+
 struct UserModel : Codable{
     let id : String
     let blogId : String
@@ -74,4 +76,14 @@ extension UserModel : Persistable{
     }
     
     
+}
+
+extension UserModel{
+    func avatarUrl() -> URL? {
+        return URL(string: self.avatar)
+    }
+    
+    func fullName() -> String {
+        return self.name + " " + self.lastname
+    }
 }

@@ -29,8 +29,8 @@
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="Blog" positionX="38.1328125" positionY="-160.84375" width="128" height="148"/>
         <element name="Media" positionX="129.8125" positionY="-30.44921875" width="128" height="133"/>
-        <element name="Blog" positionX="38.1328125" positionY="-160.84375" width="128" height="73"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="28"/>
     </elements>
 </model>

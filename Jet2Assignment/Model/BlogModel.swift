@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 struct BlogModel : Codable {
     let id : String
@@ -17,6 +18,7 @@ struct BlogModel : Codable {
     let likes : Int
     var media : [MediaModel]
     let user : [UserModel]
+    var contentHeight : CGFloat?
 }
 
 extension BlogModel : Persistable{
@@ -98,10 +100,66 @@ extension BlogModel : Persistable{
         object.user = NSSet(array: tempUserArr)
         return object
     }
+
+}
+
+// For formatted data
+extension BlogModel {
     
+    func commentsString() -> String {
+        let comments : Double = Double(self.comments)
+        let formattedStr = getFormattedString(for: comments)
+        return formattedStr + " Comments"
+    }
     
+    func getLikesString() -> String {
+        let likes : Double = Double(self.likes)
+        let formattedStr = getFormattedString(for: likes)
+        return formattedStr + " Likes"
+    }
     
+    func getCreatedDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let createdDate = dateFormatter.date(from: createdAt)
+        return createdDate!.timeAgoSinceDate()
+    }
     
+    func getFormattedString(for value:Double) -> String {
+        var formattedStr = ""
+        var fomattedValue = value
+        var unit = ""
+        if comments > 1000{
+            unit = "K"
+            fomattedValue = Double(comments)/Double(1000)
+        }else if comments > 1000000{
+            unit = "M"
+            fomattedValue = Double(comments/1000000)
+        }
+        formattedStr = getRemainderString(fomattedValue)
+        
+        return formattedStr+unit
+    }
+    
+    func getRemainderString(_ value : Double) -> String {
+        var commentStr = ""
+        let remainder = value.truncatingRemainder(dividingBy: 1)
+        if remainder >= 0.1 && remainder <= 0.99{
+            commentStr = String(format: "%.1f", value)
+        }else{
+            commentStr = String(format: "%.0f", value)
+        }
+        return commentStr
+    }
+    
+    mutating func setHeight(for width:CGFloat){
+        var height = self.content.heightWithConstrainedWidth(width: width, font: BaseConstants.contentFont)
+        if height > 100{
+            height = 100
+        }
+        self.contentHeight = height
+    }
     
 }
 

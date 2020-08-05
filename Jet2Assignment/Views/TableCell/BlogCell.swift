@@ -18,22 +18,41 @@ class BlogCell: BaseCell {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
     }
     
-    func updateUI(with data:Blog) {
-        
-        let user = Array(data.user!)[0] as! User
-        self.userNameLbl.text = "\(user.name ?? "")  \(user.lastname ?? "")"
-        self.designationLbl.text = user.designation
-        self.contentLbl.text = data.content
-        if data.media!.count > 0{
-            let media = Array(data.media!)[0] as! Media
-            self.titleLbl.text = media.title
-            self.urlLbl.text = media.url
-        }else{
-            self.reinstallMediaImage()
-            self.reinstallTitleLbl()
-            self.reinstallUrlLbl()
+    func updateUI(with data:BlogModel) {
+        self.blogModel = data
+        if let blogModel = self.blogModel{
+            self.contentLbl.text = blogModel.content
+            self.reinstallContentLabel()
+            self.commentLbl.text = blogModel.commentsString()
+            self.likesLbl.text = blogModel.getLikesString()
+            self.timeLabel.text = blogModel.getCreatedDate()
+            
+            if blogModel.media.count > 0{
+                let mediaModel = blogModel.media[0]
+                if let url = mediaModel.imageUrl(){
+                    self.fetchBlogImage(from: url)
+                }
+                self.titleLbl.text = mediaModel.title
+                self.urlLbl.text = mediaModel.url
+                
+            }
+            self.reinstallMediaImage(blogModel.media.count > 0)
+            self.reinstallTitleLbl(blogModel.media.count > 0)
+            self.reinstallUrlLbl(blogModel.media.count > 0)
+            if blogModel.user.count > 0{
+                let userModel = blogModel.user[0]
+                if let url = userModel.avatarUrl(){
+                    self.fetchUserImage(from: url)
+                }
+                self.userNameLbl.text = userModel.fullName()
+                self.designationLbl.text = userModel.designation
+                
+            }
         }
+        
     }
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

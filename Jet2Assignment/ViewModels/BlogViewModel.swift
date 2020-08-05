@@ -7,31 +7,44 @@
 //
 
 import Foundation
-
+import UIKit
 
 class BlogViewModel {
-    var data = Observable<[Blog]> (value : [])
+    var data = Observable<[BlogModel]> (value : [])
+    var isLoading = Observable<Bool> (value : false)
+    var isReachable : Bool = true
     let container : Container
     var pageCounter = 1
-    
-    init(_ container:Container) {
+    let tableView : UITableView
+    init(_ container:Container, tableView:UITableView) {
         self.container = container
-    }
-    
-    func getBlogsData() {
-        APIClient.getBlogs(for: pageCounter) { (result) in
-            switch result{
-            case .success(let response):
-                self.writeToCD(response)
-                self.pageCounter += 1
-            case .failure(let error):
-                print(error)
-            }
+        self.tableView = tableView
+        if let lastPageCounter = UserDefaults.standard.value(forKey: "LastPageFetched") as? Int{
+            self.pageCounter = lastPageCounter + 1
         }
     }
     
+    func getBlogsData() {
+        if isReachable {
+            isLoading.value = true
+            APIClient.getBlogs(for: pageCounter) { (result) in
+                switch result{
+                case .success(let response):
+                    self.writeToCD(response)
+                    if response.count > 0{
+                        UserDefaults.standard.set(self.pageCounter, forKey: "LastPageFetched")
+                        self.pageCounter += 1
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+    }
+    
     func writeToCD(_ blogModels:[BlogModel]) {
-        var tempArray = data.value
+        var tempArray : [Blog] = []
         for blogModel in blogModels{
             let predicate = NSPredicate(format: "id == %@", blogModel.id)
             var blog : Blog?
@@ -48,13 +61,28 @@ class BlogViewModel {
             tempArray.append(blog!)
         }
         self.container.save()
-        data.value = tempArray
         
+        self.isLoading.value = false
+        
+        fetchBlogsData()
     }
     
     func fetchBlogsData() {
         if let result = self.container.fetchData(of: Blog.self, with: nil) as? [Blog]{
-            data.value = result
+            if result.count > 0 {
+                var tempArray : [BlogModel] = []
+                for item in result{
+                    var blogModel = BlogModel(managedObject: item)
+                    blogModel.setHeight(for: (tableView.frame.width - 20))
+                    tempArray.append(blogModel)
+                }
+                data.value = tempArray
+                
+            }else{
+                getBlogsData()
+            }
+        }else{
+            getBlogsData()
         }
     }
 }

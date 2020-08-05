@@ -113,3 +113,51 @@ extension UICollectionViewCell {
         return String(describing: self)
     }
 }
+
+extension Date {
+
+    func timeAgoSinceDate() -> String {
+        
+        let fromDate = self
+        let toDate = Date()
+
+        if let interval = Calendar.current.dateComponents([.year], from: fromDate, to: toDate).year, interval > 0  {
+
+            return interval == 1 ? "\(interval)" + " " + "yr" : "\(interval)" + " " + "yr"
+        }
+
+  
+        if let interval = Calendar.current.dateComponents([.month], from: fromDate, to: toDate).month, interval > 0  {
+
+            return interval == 1 ? "\(interval)" + " " + "mo" : "\(interval)" + " " + "mo"
+        }
+
+  
+        if let interval = Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day, interval > 0  {
+
+            return interval == 1 ? "\(interval)" + " " + "day" : "\(interval)" + " " + "days"
+        }
+
+     
+        if let interval = Calendar.current.dateComponents([.hour], from: fromDate, to: toDate).hour, interval > 0 {
+
+            return interval == 1 ? "\(interval)" + " " + "hr" : "\(interval)" + " " + "hr"
+        }
+
+     
+        if let interval = Calendar.current.dateComponents([.minute], from: fromDate, to: toDate).minute, interval > 0 {
+
+            return interval == 1 ? "\(interval)" + " " + "min" : "\(interval)" + " " + "min"
+        }
+
+        return "just now"
+    }
+}
+
+extension String {
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font: font], context: nil)
+        return boundingBox.height
+    }
+}

@@ -51,7 +51,7 @@ extension MediaModel : Persistable{
     
     public init(managedObject: Media) {
         id = managedObject.id!
-        blogId = managedObject.blogId!
+        blogId = managedObject.blogId ?? ""
         createdAt = managedObject.createdAt!
         title = managedObject.title!
         image = managedObject.image!
@@ -60,4 +60,10 @@ extension MediaModel : Persistable{
     }
     
     
+}
+
+extension MediaModel{
+    func imageUrl() -> URL? {
+        return URL(string: self.image)
+    }
 }
